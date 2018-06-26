@@ -58,18 +58,19 @@ def download_song_by_song(song, download_folder, sub_folder=True):
     # download cover
     cover_url = song['album']['blurPicUrl']
     cover_file_name = 'cover_{}.jpg'.format(song_id)
-    download_file(cover_url, cover_file_name, song_download_folder)
+    if cover_url != None:
+        download_file(cover_url, cover_file_name, song_download_folder)
 
-    # resize cover
-    resize_img(os.path.join(song_download_folder, cover_file_name))
+        # resize cover
+        resize_img(os.path.join(song_download_folder, cover_file_name))
 
-    # add metadata for song
-    song_file_path = os.path.join(song_download_folder, song_file_name)
-    cover_file_path = os.path.join(song_download_folder, cover_file_name)
-    add_metadata_to_song(song_file_path, cover_file_path, song)
+        # add metadata for song
+        song_file_path = os.path.join(song_download_folder, song_file_name)
+        cover_file_path = os.path.join(song_download_folder, cover_file_name)
+        add_metadata_to_song(song_file_path, cover_file_path, song)
 
-    # delete cover file
-    os.remove(cover_file_path)
+        # delete cover file
+        os.remove(cover_file_path)
 
 
 def download_file(file_url, file_name, folder):
