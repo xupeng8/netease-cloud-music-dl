@@ -13,6 +13,10 @@ def resize_img(file_path, max_size=(640, 640), quality=90):
         return
 
     if img.size[0] > max_size[0] or img.size[1] > max_size[1]:
+        # RGBA can't save as JPEG, so need to convert to RGB beforing saving
+        if img.mode == "RGBA":
+            img = img.convert("RGB")
+
         img.thumbnail(max_size, Image.ANTIALIAS)
         img.save(file_path, quality=quality)
 
